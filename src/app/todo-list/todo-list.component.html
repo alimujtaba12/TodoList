@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="todo-wrapper">
+    <div class="todo-heading">tasks</div>
+    <div class="todo-card">
+      <input
+        type="text"
+        class="input-field"
+        [(ngModel)]="newTask"
+        placeholder="What needs to be done?"
+        (keyup.enter)="addToList()"
+      />
+
+      <div class="content">
+        <div class="box" *ngFor="let item of items; let index = index">
+          <div class="check-div">
+            <!-- <input
+              type="checkbox"
+              [(ngModel)]="item.status"
+              (click)="checked(item.status)"
+            /> -->
+            <div class="round">
+              <input
+                type="checkbox"
+                id="{{index}}"
+                [(ngModel)]="item.status"
+                (click)="checked(item.status)"
+              />
+              <label for="{{index}}"></label>
+              {{item.status}}
+            </div>
+          </div>
+          <div class="tasks" [ngClass]="{ 'done-task width-92': item.status }">
+            {{ item.task }}
+          </div>
+          <div
+            class="cross"
+            (click)="removeTask(index)"
+            style="cursor: pointer"
+            [ngClass]="{ 'd-none': item.status }"
+          >
+            ✘
+          </div>
+        </div>
+        <div
+          *ngIf="items.length == 0"
+          style="display: flex; justify-content: center; padding-top: 20px"
+        >
+          Right now there's no task
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="footer-content">
+          <div>{{ taskLeft }} items left</div>
+          <div>
+            <a style="cursor: pointer" (click)="clearAll()">Clear completed</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
