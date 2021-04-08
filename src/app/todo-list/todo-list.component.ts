@@ -52,9 +52,9 @@ export class TodoListComponent implements OnInit {
   }
   public checked(item) {
     if (item == true) {
-      this.taskLeft++;
-    } else {
       this.taskLeft--;
+    } else {
+      this.taskLeft++;
     }
 
     localStorage.setItem('task', JSON.stringify(this.items));
