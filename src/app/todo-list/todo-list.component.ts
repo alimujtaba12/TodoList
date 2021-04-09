@@ -14,7 +14,6 @@ export class TodoListComponent implements OnInit {
   public taskLeft: number = 0;
 
   ngOnInit(): void {
-
     if (JSON.parse(localStorage.getItem('task'))) {
       this.items = JSON.parse(localStorage.getItem('task'));
       this.taskLeft = this.items?.length;
@@ -40,14 +39,19 @@ export class TodoListComponent implements OnInit {
     this.taskLeft--;
     this.items.splice(index, 1);
     localStorage.setItem('task', JSON.stringify(this.items));
-
   }
   public clearAll() {
-    this.items.forEach((item, index) => {
-      if (item.status) {
-        this.items.splice(index, 1)
+    // this.items.forEach((item, index) => {
+    //   if (item.status) {
+    //     console.log(item, index)
+    //     this.items.splice(index, 1)
+    //   }
+    // })
+    for (var i = this.items.length - 1; i >= 0; i--) {
+      if (this.items[i].status == true) {
+        this.items.splice(this.items.indexOf(this.items[i]), 1);
       }
-    })
+    }
     localStorage.setItem('task', JSON.stringify(this.items));
   }
   public checked(item) {
@@ -56,13 +60,8 @@ export class TodoListComponent implements OnInit {
     } else {
       this.taskLeft++;
     }
-
     localStorage.setItem('task', JSON.stringify(this.items));
-    this.items.forEach(x => {
-      console.log(x)
-    })
   }
-
 }
 
 export interface Task {
